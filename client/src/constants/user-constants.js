@@ -1,0 +1,5 @@
+export const USER_SET_CURRENT = 'USER_SET_CURRENT'
+export const USER_LIST_LOADED = 'USER_LIST_LOADED'
+export const USER_CREATE = 'USER_CREATE'
+export const USER_UPDATE = 'USER_UPDATE'
+export const USER_DELETE = 'USER_DELETE'
