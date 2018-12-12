@@ -23,16 +23,16 @@ router.post("/register", function(req, res) {
         email: "Email already exists"
       });
     } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: "200",
-        r: "pg",
-        d: "mm"
-      });
+      // const avatar = gravatar.url(req.body.email, {
+      //   s: "200",
+      //   r: "pg",
+      //   d: "mm"
+      // });
       const newUser = new User({
-        name: req.body.name,
+        username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
-        avatar
+        password: req.body.password
+        // avatar
       });
 
       bcrypt.genSalt(10, (err, salt) => {
@@ -72,7 +72,7 @@ router.post("/login", (req, res) => {
       if (isMatch) {
         const payload = {
           id: user.id,
-          name: user.name,
+          username: user.username,
           avatar: user.avatar
         };
         jwt.sign(
@@ -105,7 +105,7 @@ router.get(
   (req, res) => {
     return res.json({
       id: req.user.id,
-      name: req.user.name,
+      username: req.user.username,
       email: req.user.email
     });
   }

@@ -50,6 +50,14 @@ class Topnavbar extends Component {
 							>
 								register
 							</NavItem>
+							<NavItem
+								componentClass={Link}
+								href="/registerform"
+								to="/registerform"
+								active={window.location.pathname === '/registerform'}
+							>
+								registerform
+							</NavItem>
 						</Nav>
 						<Navbar.Form pullRight>
 							<FormGroup>
