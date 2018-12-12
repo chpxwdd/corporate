@@ -41,6 +41,9 @@ class RegisterForm extends Component {
     this.setState({
       [e.target.id]: e.target.value,
     })
+    if (this.props.errors[e.target.id]) {
+      delete this.props.errors[e.target.id]
+    }
   }
 
   register = (user, history) => {
@@ -52,8 +55,12 @@ class RegisterForm extends Component {
       })
   }
 
-  getValidationState(e) {
-    console.log('getValidationState', e)
+  getValidationState(field) {
+    if (this.props.errors[field]) {
+      console.log(field, 'error')
+      return 'error'
+    }
+    return null
   }
 
   renderFormGroup(field, inputType, label = '') {
@@ -63,7 +70,7 @@ class RegisterForm extends Component {
     return (
       <FormGroup
         controlId={field}
-        validationState={this.getValidationState({ field })}
+        validationState={this.props.errors[field] ? 'error' : null}
       >
         <ControlLabel>{label}</ControlLabel>
         <FormControl
@@ -80,7 +87,6 @@ class RegisterForm extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Form onSubmit={this.handleSubmit}>
         {this.renderFormGroup('username', 'text', 'Имя пользователя')}
@@ -94,21 +100,3 @@ class RegisterForm extends Component {
   }
 }
 export default RegisterForm
-
-// RegisterForm.propTypes = {
-//   users: PropTypes.object.isRequired,
-// }
-
-// const mapStateToProps = state => ({
-//   users: state.users,
-// })
-
-// const mapDispatchToProps = dispatch => ({
-//   register: bindActionCreators(actionCategoryCreate, dispatch),
-// })
-
-// export default connect(
-//   mapStateToProps,
-//   {}
-//   //   mapDispatchToProps
-// )(withRouter(RegisterForm))
