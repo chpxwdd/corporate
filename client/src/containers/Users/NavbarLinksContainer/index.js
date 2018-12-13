@@ -1,2 +1,2 @@
-import ActionsContainer from './ActionsContainer'
-export default ActionsContainer
+import NavbarLinksContainer from './NavbarLinksContainer'
+export default NavbarLinksContainer

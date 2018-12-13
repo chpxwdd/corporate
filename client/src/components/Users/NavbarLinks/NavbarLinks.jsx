@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap'
-
+import { Nav, NavItem, Glyphicon } from 'react-bootstrap'
 import setAuthToken from '../../../setAuthToken'
 
 export default class NavbarLinks extends Component {
@@ -36,7 +35,7 @@ export default class NavbarLinks extends Component {
           componentClass={Link}
           href="/login"
           to="/login"
-          onClick={this.onLogout.bind(this)}
+          onClick={this.logout.bind(this)}
         >
           Logout <Glyphicon glyph="logout" />
         </NavItem>
