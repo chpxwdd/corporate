@@ -12,7 +12,7 @@ export default class NavbarLinks extends Component {
     this.props.history.push('/login')
   }
 
-  render() {
+  renderGuestNav() {
     return (
       <Nav>
         <NavItem
@@ -31,6 +31,13 @@ export default class NavbarLinks extends Component {
         >
           Signin <Glyphicon glyph="login" />
         </NavItem>
+      </Nav>
+    )
+  }
+
+  renderMemberAuth() {
+    return (
+      <Nav>
         <NavItem
           componentClass={Link}
           href="/login"
@@ -41,5 +48,12 @@ export default class NavbarLinks extends Component {
         </NavItem>
       </Nav>
     )
+  }
+
+  render() {
+    return
+    {
+      this.props.current ? this.renderMemberAuth() : this.renderGuestNav()
+    }
   }
 }
