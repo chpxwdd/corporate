@@ -3,27 +3,29 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
 import { getErrors, setCurrent } from '../../../actions/users-actions'
-import RegisterForm from '../../../components/Users/RegisterForm'
+import Login from '../../../components/Users/Login'
 
-class RegisterFormContainer extends Component {
+class LoginContainer extends Component {
   render() {
-    return <RegisterForm {...this.props} />
+    return <Login {...this.props} />
   }
 }
 
 const mapStateToProps = store => {
   return {
     errors: store.users.errors,
+    current: store.users.current,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getErrors: bindActionCreators(getErrors, dispatch),
+    setCurrent: bindActionCreators(setCurrent, dispatch),
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(RegisterFormContainer))
+)(withRouter(LoginContainer))

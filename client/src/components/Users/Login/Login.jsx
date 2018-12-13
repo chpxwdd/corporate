@@ -7,60 +7,65 @@ import {
   ControlLabel,
   HelpBlock,
 } from 'react-bootstrap'
-// import PropTypes from 'prop-types'
+import jwt_decode from 'jwt-decode'
 import axios from 'axios'
-// import jwt_decode from 'jwt-decode'
+import setAuthToken from '../../../setAuthToken'
 
-// import * as UserAPI from '../../../services/users-services'
-
-class RegisterForm extends Component {
-  constructor() {
-    super()
+export default class Login extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
-      username: '',
       email: '',
       password: '',
-      confirm: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount() {
+    if (this.props.current) {
+      this.props.history.push('/')
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.current) {
+      this.props.history.push('/')
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     const user = {
-      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
-      confirm: this.state.confirm,
     }
-    this.register(user, this.props.history)
+    this.login(user)
   }
 
   handleInputChange(e) {
     this.setState({
       [e.target.id]: e.target.value,
     })
+
     if (this.props.errors[e.target.id]) {
       delete this.props.errors[e.target.id]
     }
   }
 
-  register = (user, history) => {
+  login = (user, history) => {
     axios
-      .post('/api/users/register', user)
-      .then(res => history.push('/login'))
+      .post('/api/users/login', user)
+      .then(res => {
+        const { token } = res.data
+        localStorage.setItem('jwtToken', token)
+        setAuthToken(token)
+        const decoded = jwt_decode(token)
+        this.props.setCurrent(decoded)
+      })
       .catch(err => {
         this.props.getErrors(err.response.data)
       })
-  }
-
-  getValidationState(field) {
-    if (this.props.errors[field]) {
-      console.log(field, 'error')
-      return 'error'
-    }
-    return null
   }
 
   renderFormGroup(field, inputType, label = '') {
@@ -89,14 +94,10 @@ class RegisterForm extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        {this.renderFormGroup('username', 'text', 'Имя пользователя')}
         {this.renderFormGroup('email', 'text', 'E-M@il')}
         {this.renderFormGroup('password', 'password', 'Пароль')}
-        {this.renderFormGroup('confirm', 'password', 'Подтверждение')}
-
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Signup</Button>
       </Form>
     )
   }
 }
-export default RegisterForm
