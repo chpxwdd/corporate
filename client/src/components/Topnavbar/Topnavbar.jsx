@@ -1,15 +1,7 @@
 import React, { Component } from 'react'
-import {
-  Navbar,
-  Nav,
-  NavItem,
-  InputGroup,
-  Glyphicon,
-  FormGroup,
-  FormControl,
-  Button,
-} from 'react-bootstrap'
+import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import NavbarLinksContainer from '../../containers/Users/NavbarLinksContainer'
 
 class Topnavbar extends Component {
   render() {
@@ -34,23 +26,10 @@ class Topnavbar extends Component {
               >
                 Home
               </NavItem>
-              <NavItem
-                componentClass={Link}
-                href="/registerform"
-                to="/registerform"
-                active={window.location.pathname === '/registerform'}
-              >
-                registerform
-              </NavItem>
-              <NavItem
-                componentClass={Link}
-                href="/loginform"
-                to="/loginform"
-                active={window.location.pathname === '/loginform'}
-              >
-                loginform
-              </NavItem>
             </Nav>
+          </Navbar.Collapse>
+          <Navbar.Collapse>
+            <NavbarLinksContainer />
           </Navbar.Collapse>
         </Navbar>
       </div>

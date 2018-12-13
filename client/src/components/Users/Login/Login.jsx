@@ -7,8 +7,8 @@ import {
   ControlLabel,
   HelpBlock,
 } from 'react-bootstrap'
-import jwt_decode from 'jwt-decode'
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 import setAuthToken from '../../../setAuthToken'
 
 export default class Login extends Component {
