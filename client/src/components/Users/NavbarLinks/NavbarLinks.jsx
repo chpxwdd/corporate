@@ -1,59 +1,62 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Nav, NavItem, Glyphicon } from 'react-bootstrap'
+import { Nav, NavItem } from 'react-bootstrap'
 import setAuthToken from '../../../setAuthToken'
 
 export default class NavbarLinks extends Component {
-  logout = e => {
+  constructor(props) {
+    super(props)
+    this.onLogout = this.onLogout.bind(this)
+  }
+
+  onLogout = e => {
     e.preventDefault()
     localStorage.removeItem('jwtToken')
     setAuthToken(false)
-    this.props.setCurrent({})
+    this.props.setCurrent(null)
     this.props.history.push('/login')
   }
 
-  renderGuestNav() {
+  memberNav = () => {
     return (
-      <Nav>
+      <Nav pullRight>
         <NavItem
           componentClass={Link}
-          href="/register"
-          to="/register"
-          active={window.location.pathname === '/register'}
+          href="/logout"
+          to="/logout"
+          onClick={this.onLogout}
+          active={window.location.pathname === '/logout'}
         >
-          Signup <Glyphicon glyph="user" />
+          Logout
         </NavItem>
+      </Nav>
+    )
+  }
+
+  guestNav = () => {
+    return (
+      <Nav pullRight>
         <NavItem
           componentClass={Link}
           href="/login"
           to="/login"
           active={window.location.pathname === '/login'}
         >
-          Signin <Glyphicon glyph="login" />
+          Signin
         </NavItem>
-      </Nav>
-    )
-  }
-
-  renderMemberAuth() {
-    return (
-      <Nav>
         <NavItem
           componentClass={Link}
-          href="/login"
-          to="/login"
-          onClick={this.logout.bind(this)}
+          href="/register"
+          to="/register"
+          active={window.location.pathname === '/register'}
         >
-          Logout <Glyphicon glyph="logout" />
+          Signup
         </NavItem>
       </Nav>
     )
   }
 
   render() {
-    return
-    {
-      this.props.current ? this.renderMemberAuth() : this.renderGuestNav()
-    }
+    return this.props.current ? this.memberNav() : this.guestNav()
   }
 }

@@ -17,7 +17,7 @@ class Topnavbar extends Component {
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            <Nav pullLeft>
+            <Nav>
               <NavItem
                 componentClass={Link}
                 href="/"
@@ -27,8 +27,6 @@ class Topnavbar extends Component {
                 Home
               </NavItem>
             </Nav>
-          </Navbar.Collapse>
-          <Navbar.Collapse>
             <NavbarLinksContainer />
           </Navbar.Collapse>
         </Navbar>

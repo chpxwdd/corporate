@@ -6,7 +6,7 @@ import {
 import isEmpty from '../validation/is-empty'
 
 const initialState = {
-  current: {},
+  current: null,
   errors: {},
 }
 
