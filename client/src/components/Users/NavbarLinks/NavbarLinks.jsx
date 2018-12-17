@@ -1,12 +1,26 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Nav, NavItem } from 'react-bootstrap'
+import jwt_decode from 'jwt-decode'
 import setAuthToken from '../../../setAuthToken'
 
 export default class NavbarLinks extends Component {
   constructor(props) {
     super(props)
     this.onLogout = this.onLogout.bind(this)
+  }
+
+  componentDidMount() {
+    if (localStorage.jwtToken) {
+      setAuthToken(localStorage.jwtToken)
+      const decoded = jwt_decode(localStorage.jwtToken)
+      this.props.setCurrent(decoded)
+
+      const currentTime = Date.now() / 1000
+      if (decoded.exp < currentTime) {
+        this.onLogout()
+      }
+    }
   }
 
   onLogout = e => {
