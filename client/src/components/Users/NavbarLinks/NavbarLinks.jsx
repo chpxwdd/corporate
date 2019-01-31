@@ -18,13 +18,17 @@ export default class NavbarLinks extends Component {
 
       const currentTime = Date.now() / 1000
       if (decoded.exp < currentTime) {
+        // localStorage.removeItem('jwtToken')
+        // setAuthToken(false)
+        // this.props.setCurrent(null)
+        // this.props.history.push('/login')
         this.onLogout()
       }
     }
   }
 
-  onLogout = e => {
-    e.preventDefault()
+  onLogout = () => {
+    // e.preventDefault()
     localStorage.removeItem('jwtToken')
     setAuthToken(false)
     this.props.setCurrent(null)
