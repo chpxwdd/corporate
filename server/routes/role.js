@@ -3,30 +3,27 @@ const router = express.Router()
 
 const { Role } = require('../models/schema')
 
-router.post('/create', function(req, res) {
-  Role.findOne({
-    name: req.body.name,
-  }).then(role => {
-    if (role) {
-      return res.status(400).json({
-        name: 'Role already exists',
-      })
-    } else {
-      const newRole = new Role({
-        name: req.body.name,
-      })
+//CRUD OPERATIONS
+// Create[POST]
+router.post('/', function(req, res, next) {
+  console.log(req.body)
+  res.send('corporate -> role -> create')
+  const { body } = req
 
-      if (err) console.error('There was an error', err)
-      else {
-        if (err) console.error('There was an error', err)
-        else {
-          newRole.save().then(role => {
-            res.json(role)
-          })
-        }
-      }
-    }
-  })
+  if (!body.name) {
+    return res.status(422).json({
+      errors: {
+        name: 'is required',
+      },
+    })
+  }
+
+  const finalArticle = new Articles(body)
+
+  return finalArticle
+    .save()
+    .then(() => res.json({ role: finalArticle.toJSON() }))
+    .catch(next)
 })
 
 module.exports = router
