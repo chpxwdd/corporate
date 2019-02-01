@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem, Glyphicon } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import NavbarLinksContainer from '../../containers/Users/NavbarLinksContainer'
+import AuthLinksContainer from '../../containers/AuthLinksContainer'
 
 class Topnavbar extends Component {
   render() {
@@ -18,16 +18,11 @@ class Topnavbar extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem
-                componentClass={Link}
-                href="/"
-                to="/"
-                active={window.location.pathname === '/'}
-              >
+              <NavItem componentClass={Link} href="/" to="/" active={window.location.pathname === '/'}>
                 Home
               </NavItem>
             </Nav>
-            <NavbarLinksContainer />
+            <AuthLinksContainer />
           </Navbar.Collapse>
         </Navbar>
       </div>

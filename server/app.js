@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const config = require("./db");
-const users = require("./routes/user");
+const user = require("./routes/user");
+const role = require("./routes/role");
 
 mongoose
   .connect(
@@ -26,7 +27,8 @@ require("./passport")(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/api/users", users);
+app.use("/api/user", user);
+app.use("/api/role", role);
 
 app.get("/", function(req, res) {
   res.send("hello");

@@ -1,0 +1,2 @@
+export const USER_GET_ERRORS = 'USER_GET_ERRORS'
+export const USER_SET_CURRENT = 'USER_SET_CURRENT'
