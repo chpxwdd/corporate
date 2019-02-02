@@ -15,10 +15,11 @@ UserSchema.add({
 
 RoleSchema.add({
   id: mongoose.Schema.ObjectId,
-  name: { type: String, required: true },
-  parent: [{ type: Schema.Types.ObjectId, ref: 'Role', default: null }],
-  users: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
+  title: { type: String, required: true },
+  // parent: [{ type: Schema.Types.ObjectId, ref: 'Role', default: null }],
+  // users: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
 })
+
 module.exports = {
   User: mongoose.model('User', UserSchema),
   Role: mongoose.model('Role', RoleSchema),

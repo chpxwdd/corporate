@@ -1,29 +1,17 @@
 const express = require('express')
 const router = express.Router()
 
-const { Role } = require('../models/schema')
+const roles = require('../controllers/role.js')
 
-//CRUD OPERATIONS
-// Create[POST]
-router.post('/', function(req, res, next) {
-  console.log(req.body)
-  res.send('corporate -> role -> create')
-  const { body } = req
-
-  if (!body.name) {
-    return res.status(422).json({
-      errors: {
-        name: 'is required',
-      },
-    })
-  }
-
-  const finalArticle = new Articles(body)
-
-  return finalArticle
-    .save()
-    .then(() => res.json({ role: finalArticle.toJSON() }))
-    .catch(next)
-})
+// CREATE
+router.post('/create', roles.create)
+// READ
+router.get('/:roleId', roles.findOne)
+// UPDATE
+router.put('/:roleId', roles.update)
+// DELETE
+router.delete('/:roleId', roles.delete)
+// FETCH
+router.get('/', roles.findAll)
 
 module.exports = router
