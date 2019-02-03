@@ -1,19 +1,19 @@
-import { USER_GET_ERRORS, USER_SET_CURRENT } from '../constants/user-constants'
+import { AUTH_USER_ERRORS, AUTH_USER_SET } from '../constants/auth.user'
 
 const initialState = {
   current: null,
   errors: {},
 }
 
-export default function userReducers(state = initialState, { type, payload }) {
+export default function reducerAuthUser(state = initialState, { type, payload }) {
   switch (type) {
-    case USER_SET_CURRENT:
+    case AUTH_USER_SET:
       return {
         ...state,
         current: payload,
       }
 
-    case USER_GET_ERRORS:
+    case AUTH_USER_ERRORS:
       return {
         ...state,
         errors: payload,

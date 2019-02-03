@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { getErrors, setCurrent } from '../../actions/user-actions'
+import { getErrors, setCurrent } from '../../actions/auth.user'
 import Login from '../../components/LoginForm'
 
 class LoginFormContainer extends Component {

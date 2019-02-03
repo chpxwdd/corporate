@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { setCurrent } from '../../actions/user-actions'
+import { setCurrent } from '../../actions/auth.user'
 import AuthLinks from '../../components/AuthLinks'
 
 class AuthLinksContainer extends Component {

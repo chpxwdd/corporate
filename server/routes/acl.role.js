@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const roles = require('../controllers/role.js')
+const roles = require('../controllers/acl.role.js')
 
 // CREATE
 router.post('/create', roles.create)

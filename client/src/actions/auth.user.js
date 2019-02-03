@@ -1,15 +1,15 @@
-import { USER_SET_CURRENT, USER_GET_ERRORS } from '../constants/user-constants'
+import { AUTH_USER_SET, AUTH_USER_ERRORS } from '../constants/auth.user'
 
 export const getErrors = data => {
   return {
-    type: USER_GET_ERRORS,
+    type: AUTH_USER_ERRORS,
     payload: data,
   }
 }
 
 export const setCurrent = data => {
   return {
-    type: USER_SET_CURRENT,
+    type: AUTH_USER_SET,
     payload: data,
   }
 }

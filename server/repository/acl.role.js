@@ -1,21 +1,18 @@
-const { Role } = require('../models/schema.js')
+const { AclRole } = require('../models/schema.js')
 
 /**
  * CREATE [POST]
  */
 exports.create = (req, res) => {
-  console.log('create tole')
-  console.log('\t ', req)
-  console.log('\t ', res)
   // Create a Role
-  const Role = new Role({
+  const AclRole = new AclRole({
     title: req.body.title,
   })
 
   // Save a Role into MongoDB
-  Role.save()
-    .then(Role => {
-      res.send(Role.toClient())
+  AclRole.save()
+    .then(role => {
+      res.send(role.toClient())
     })
     .catch(err => {
       res.status(500).send({
@@ -28,14 +25,14 @@ exports.create = (req, res) => {
  *  READ
  */
 exports.findOne = (req, res) => {
-  Role.findById(req.params.RoleId)
-    .then(Role => {
-      if (!Role) {
+  AclRole.findById(req.params.RoleId)
+    .then(role => {
+      if (!role) {
         return res.status(404).send({
           message: 'Role not found with id ' + req.params.RoleId,
         })
       }
-      res.send(Role.toClient())
+      res.send(role.toClient())
     })
     .catch(err => {
       if (err.kind === 'ObjectId') {
@@ -54,20 +51,20 @@ exports.findOne = (req, res) => {
  */
 exports.update = (req, res) => {
   // Find Role and update it
-  Role.findOneAndUpdate(
+  AclRole.findOneAndUpdate(
     { _id: req.params.RoleId },
     {
       title: req.body.title,
     },
     { new: true }
   )
-    .then(Role => {
-      if (!Role) {
+    .then(role => {
+      if (!role) {
         return res.status(404).send({
           message: 'Role not found with id ' + req.params.RoleId,
         })
       }
-      res.send(Role.toClient())
+      res.send(role.toClient())
     })
     .catch(err => {
       if (err.kind === 'ObjectId') {
@@ -85,9 +82,9 @@ exports.update = (req, res) => {
  *  DELETE
  */
 exports.delete = (req, res) => {
-  Role.findByIdAndRemove(req.params.RoleId)
-    .then(Role => {
-      if (!Role) {
+  AclRole.findByIdAndRemove(req.params.RoleId)
+    .then(role => {
+      if (!role) {
         return res.status(404).send({
           message: 'Role not found with id ' + req.params.RoleId,
         })
@@ -108,12 +105,12 @@ exports.delete = (req, res) => {
 
 // FETCH all Roles
 exports.findAll = (req, res) => {
-  Role.find()
-    .then(Roles => {
+  AclRole.find()
+    .then(roles => {
       let returnedRoles = []
 
-      for (let i = 0; i < Roles.length; i++) {
-        returnedRoles.push(Roles[i].toClient())
+      for (let i = 0; i < roles.length; i++) {
+        returnedRoles.push(roles[i].toClient())
       }
 
       res.send(returnedRoles)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { getErrors } from '../../actions/user-actions'
+import { getErrors } from '../../actions/auth.user'
 import RegisterForm from '../../components/RegisterForm'
 
 class RegisterFormContainer extends Component {

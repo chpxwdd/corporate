@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import userReducer from '../reducers/user-reducers'
+import reducerAuthUser from '../reducers/auth.user'
+import reducerAaclRole from '../reducers/acl.role'
 
 export const rootReducer = combineReducers({
-  user: userReducer,
+  user: reducerAuthUser,
+  role: reducerAaclRole,
 })

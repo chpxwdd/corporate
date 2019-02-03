@@ -1,26 +1,31 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const UserSchema = new Schema()
-const RoleSchema = new Schema()
+const schemaAuthUser = new Schema()
+schemaAuthUser.set('collection', 'auth-user')
 
-UserSchema.add({
+const schemaAclRole = new Schema()
+schemaAclRole.set('collection', 'acl-role')
+
+schemaAuthUser.add({
   id: mongoose.Schema.ObjectId,
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  roles: [{ type: Schema.Types.ObjectId, ref: 'Role' }],
+  roles: [{ type: Schema.Types.ObjectId, ref: 'AclRole' }],
 })
 
-RoleSchema.add({
+schemaAclRole.add({
   id: mongoose.Schema.ObjectId,
   title: { type: String, required: true },
-  // parent: [{ type: Schema.Types.ObjectId, ref: 'Role', default: null }],
-  // users: [{ type: Schema.Types.ObjectId, ref: 'User', default: null }],
+  parent: [{ type: Schema.Types.ObjectId, ref: 'AclRole', default: null }],
+  // users: [{ type: Schema.Types.ObjectId, ref: 'AuthUser', default: null }],
 })
 
+/* INSTALL ACL ROLE */
+
 module.exports = {
-  User: mongoose.model('User', UserSchema),
-  Role: mongoose.model('Role', RoleSchema),
+  AuthUser: mongoose.model('AuthUser', schemaAuthUser),
+  AclRole: mongoose.model('AclRole', schemaAclRole),
 }

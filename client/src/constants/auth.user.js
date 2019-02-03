@@ -1,0 +1,2 @@
+export const AUTH_USER_ERRORS = 'AUTH_USER_ERRORS'
+export const AUTH_USER_SET = 'AUTH_USER_SET'
