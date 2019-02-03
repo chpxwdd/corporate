@@ -9,8 +9,10 @@ const modelAuthAclRole = mongoose.model('AuthAclRole')
 
 const memberAuthAclRole = new modelAuthAclRole({ title: APP_AUTH_MEMBER })
 memberAuthAclRole.save()
+
 const adminAuthAclRole = new modelAuthAclRole({ title: APP_AUTH_ADMIN, parent: memberAuthAclRole })
 adminAuthAclRole.save()
+
 bcrypt.genSalt(10, (err, salt) => {
   if (err) {
     console.error('Users has not created', err)
