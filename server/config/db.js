@@ -1,3 +1,7 @@
 module.exports = {
-  DB: "mongodb://localhost:27017/corporate"
-};
+  path: 'mongodb://localhost:27017/corporate',
+  options: {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+  },
+}

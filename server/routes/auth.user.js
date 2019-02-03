@@ -6,7 +6,7 @@ const passport = require('passport')
 const validateRegisterInput = require('../validation/register')
 const validateLoginInput = require('../validation/login')
 
-const { AuthUser } = require('../models/schema')
+const { AuthUser, AuthAclRole } = require('../models/schema')
 
 router.post('/register', function(req, res) {
   const { errors, isValid } = validateRegisterInput(req.body)
@@ -22,20 +22,22 @@ router.post('/register', function(req, res) {
         email: 'Email already exists',
       })
     } else {
-      const newUser = new AuthUser({
+      const memberAuthAclRole = new AuthAclRole()
+      const memberAuthUser = new AuthUser({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        role: memberAuthAclRole.find({ title: 'member' }),
       })
 
       bcrypt.genSalt(10, (err, salt) => {
         if (err) console.error('There was an error', err)
         else {
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+          bcrypt.hash(memberAuthUser.password, salt, (err, hash) => {
             if (err) console.error('There was an error', err)
             else {
-              newUser.password = hash
-              newUser.save().then(user => {
+              memberAuthUser.password = hash
+              memberAuthUser.save().then(user => {
                 res.json(user)
               })
             }
@@ -70,9 +72,7 @@ router.post('/login', (req, res) => {
       const payload = {
         id: user.id,
         username: user.username,
-        acl: {
-          role: user.roles,
-        },
+        role: user.role,
       }
 
       const jwtOptions = { expiresIn: 3600 }

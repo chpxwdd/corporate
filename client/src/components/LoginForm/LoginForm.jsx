@@ -48,7 +48,7 @@ export default class LoginForm extends Component {
 
   login = (user, history) => {
     axios
-      .post('/api/user/login', user)
+      .post('/api/auth/user/login', user)
       .then(res => {
         const { token } = res.data
         localStorage.setItem('jwtToken', token)

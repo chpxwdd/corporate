@@ -11,20 +11,20 @@ export default class AuthLinks extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.jwtToken) {
-      setAuthToken(localStorage.jwtToken)
-      const decoded = jwt_decode(localStorage.jwtToken)
-      this.props.setCurrent(decoded)
-
-      const currentTime = Date.now() / 1000
-      if (decoded.exp < currentTime) {
-        // localStorage.removeItem('jwtToken')
-        // setAuthToken(false)
-        // this.props.setCurrent(null)
-        // this.props.history.push('/login')
-        this.onLogout()
-      }
+    if (!localStorage.jwtToken) {
+      return
     }
+
+    setAuthToken(localStorage.jwtToken)
+    const decoded = jwt_decode(localStorage.jwtToken)
+    this.props.setCurrent(decoded)
+
+    const currentTime = Date.now() / 1000
+
+    if (decoded.exp >= currentTime) {
+      return
+    }
+    this.onLogout()
   }
 
   onLogout = () => {

@@ -1,16 +1,16 @@
-const { AclRole } = require('../models/schema.js')
+const { AuthAclRole } = require('../models/schema.js')
 
 /**
  * CREATE [POST]
  */
 exports.create = (req, res) => {
   // Create a Role
-  const AclRole = new AclRole({
+  const AuthAclRole = new AuthAclRole({
     title: req.body.title,
   })
 
   // Save a Role into MongoDB
-  AclRole.save()
+  AuthAclRole.save()
     .then(role => {
       res.send(role.toClient())
     })
@@ -25,11 +25,11 @@ exports.create = (req, res) => {
  *  READ
  */
 exports.findOne = (req, res) => {
-  AclRole.findById(req.params.RoleId)
+  AuthAclRole.findById(req.params._roleId)
     .then(role => {
       if (!role) {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       res.send(role.toClient())
@@ -37,11 +37,11 @@ exports.findOne = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       return res.status(500).send({
-        message: 'Error retrieving Role with id ' + req.params.RoleId,
+        message: 'Error retrieving Role with id ' + req.params._roleId,
       })
     })
 }
@@ -51,8 +51,8 @@ exports.findOne = (req, res) => {
  */
 exports.update = (req, res) => {
   // Find Role and update it
-  AclRole.findOneAndUpdate(
-    { _id: req.params.RoleId },
+  AuthAclRole.findOneAndUpdate(
+    { _id: req.params._roleId },
     {
       title: req.body.title,
     },
@@ -61,7 +61,7 @@ exports.update = (req, res) => {
     .then(role => {
       if (!role) {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       res.send(role.toClient())
@@ -69,11 +69,11 @@ exports.update = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       return res.status(500).send({
-        message: 'Error updating Role with id ' + req.params.RoleId,
+        message: 'Error updating Role with id ' + req.params._roleId,
       })
     })
 }
@@ -82,11 +82,11 @@ exports.update = (req, res) => {
  *  DELETE
  */
 exports.delete = (req, res) => {
-  AclRole.findByIdAndRemove(req.params.RoleId)
+  AuthAclRole.findByIdAndRemove(req.params._roleId)
     .then(role => {
       if (!role) {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       res.send({ message: 'Role deleted successfully!' })
@@ -94,18 +94,18 @@ exports.delete = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params.RoleId,
+          message: 'Role not found with id ' + req.params._roleId,
         })
       }
       return res.status(500).send({
-        message: 'Could not delete Role with id ' + req.params.RoleId,
+        message: 'Could not delete Role with id ' + req.params._roleId,
       })
     })
 }
 
 // FETCH all Roles
 exports.findAll = (req, res) => {
-  AclRole.find()
+  AuthAclRole.find()
     .then(roles => {
       let returnedRoles = []
 

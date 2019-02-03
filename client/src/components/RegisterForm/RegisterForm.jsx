@@ -37,7 +37,7 @@ export default class RegisterForm extends Component {
 
   register = (user, history) => {
     axios
-      .post('/api/user/register', user)
+      .post('/api/auth/user/register', user)
       .then(res => history.push('/login'))
       .catch(err => {
         this.props.getErrors(err.response.data)
