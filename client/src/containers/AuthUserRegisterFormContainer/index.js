@@ -1,0 +1,2 @@
+import AuthUserRegisterFormContainer from './AuthUserRegisterFormContainer'
+export default AuthUserRegisterFormContainer

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Nav, NavItem } from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
-import setAuthToken from '../../setAuthToken'
+import { setAuthToken } from '../../utils/auth.user'
 
 export default class AuthLinks extends Component {
   constructor(props) {

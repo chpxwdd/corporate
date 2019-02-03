@@ -2,28 +2,30 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { getErrors } from '../../actions/auth.user'
-import RegisterForm from '../../components/RegisterForm'
+import { getErrors, setCurrent } from '../../actions/auth.user'
+import AuthUserLoginForm from '../../components/AuthUserLoginForm'
 
-class RegisterFormContainer extends Component {
+class AuthUserLoginFormContainer extends Component {
   render() {
-    return <RegisterForm {...this.props} />
+    return <AuthUserLoginForm {...this.props} />
   }
 }
 
 const mapStateToProps = store => {
   return {
     errors: store.user.errors,
+    current: store.user.current,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getErrors: bindActionCreators(getErrors, dispatch),
+    setCurrent: bindActionCreators(setCurrent, dispatch),
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(RegisterFormContainer))
+)(withRouter(AuthUserLoginFormContainer))
