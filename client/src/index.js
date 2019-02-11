@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import Root from './components/Root'
-import { store } from './store/configureStore'
+import Root from './common/root'
+import { store } from './store'
 
-import registerServiceWorker from './registerServiceWorker'
+import registerServiceWorker from './sw'
 
 render(
   <div>

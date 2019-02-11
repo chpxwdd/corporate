@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
 import axios from 'axios'
 
-export default class AuthUserRegisterForm extends Component {
+export default class AuthUserFormRegister extends Component {
   constructor(props) {
     super(props)
     this.state = {

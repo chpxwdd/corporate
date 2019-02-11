@@ -1,4 +1,4 @@
-import { AUTH_USER_ERRORS, AUTH_USER_SET } from '../constants/auth.user'
+import { AUTH_USER_ERRORS, AUTH_USER_SET } from './constant'
 
 const initialState = {
   current: null,

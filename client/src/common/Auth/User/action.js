@@ -1,4 +1,4 @@
-import { AUTH_USER_SET, AUTH_USER_ERRORS } from '../constants/auth.user'
+import { AUTH_USER_SET, AUTH_USER_ERRORS } from './constant'
 
 export const getErrors = data => {
   return {

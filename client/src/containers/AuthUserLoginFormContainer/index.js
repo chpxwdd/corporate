@@ -1,2 +1,0 @@
-import AuthUserLoginFormContainer from './AuthUserLoginFormContainer'
-export default AuthUserLoginFormContainer

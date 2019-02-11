@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { setAuthToken } from '../../utils/auth.user'
+import { setAuthToken } from './utils'
 
-export default class AuthUserLoginForm extends Component {
+export default class AuthUserFormLogin extends Component {
   constructor(props) {
     super(props)
     this.state = {
