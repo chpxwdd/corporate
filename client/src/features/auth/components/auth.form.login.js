@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { setAuthToken } from './utils'
+import { setAuthToken } from '../utils'
 
-export default class AuthUserFormLogin extends Component {
+export default class AuthFormLogin extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -48,7 +48,7 @@ export default class AuthUserFormLogin extends Component {
 
   login = (user, history) => {
     axios
-      .post('/api/auth/user/login', user)
+      .post('/api/auth/login', user)
       .then(res => {
         const { token } = res.data
         localStorage.setItem('jwtToken', token)

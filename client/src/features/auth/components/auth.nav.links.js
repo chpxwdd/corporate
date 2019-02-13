@@ -2,14 +2,25 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Nav, NavItem } from 'react-bootstrap'
 import jwt_decode from 'jwt-decode'
-import { setAuthToken } from './utils'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router-dom'
+import { setCurrent } from '../action'
+import { setAuthToken } from '../utils'
 
-export default class AuthUserNavLinks extends Component {
+class AuthNavLinks extends Component {
+  /**
+   *
+   * @param {*} props
+   */
   constructor(props) {
     super(props)
     this.onLogout = this.onLogout.bind(this)
   }
 
+  /**
+   *
+   */
   componentDidMount() {
     if (!localStorage.jwtToken) {
       return
@@ -26,7 +37,9 @@ export default class AuthUserNavLinks extends Component {
     }
     this.onLogout()
   }
-
+  /**
+   *
+   */
   onLogout = () => {
     // e.preventDefault()
     localStorage.removeItem('jwtToken')
@@ -34,7 +47,9 @@ export default class AuthUserNavLinks extends Component {
     this.props.setCurrent(null)
     this.props.history.push('/login')
   }
-
+  /**
+   *
+   */
   memberNav = () => {
     return (
       <Nav pullRight>
@@ -73,3 +88,20 @@ export default class AuthUserNavLinks extends Component {
     return this.props.current ? this.memberNav() : this.guestNav()
   }
 }
+
+const mapStateToProps = store => {
+  return {
+    current: store.auth.current,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrent: bindActionCreators(setCurrent, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AuthNavLinks))

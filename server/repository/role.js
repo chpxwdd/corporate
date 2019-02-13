@@ -1,16 +1,16 @@
-const { AuthAclRole } = require('../models/schema.js')
+const { Role } = require('../models/schema.js')
 
 /**
  * CREATE [POST]
  */
 exports.create = (req, res) => {
   // Create a Role
-  const AuthAclRole = new AuthAclRole({
+  const Role = new Role({
     title: req.body.title,
   })
 
   // Save a Role into MongoDB
-  AuthAclRole.save()
+  Role.save()
     .then(role => {
       res.send(role.toClient())
     })
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
  *  READ
  */
 exports.findOne = (req, res) => {
-  AuthAclRole.findById(req.params._roleId)
+  Role.findById(req.params._roleId)
     .then(role => {
       if (!role) {
         return res.status(404).send({
@@ -51,7 +51,7 @@ exports.findOne = (req, res) => {
  */
 exports.update = (req, res) => {
   // Find Role and update it
-  AuthAclRole.findOneAndUpdate(
+  Role.findOneAndUpdate(
     { _id: req.params._roleId },
     {
       title: req.body.title,
@@ -82,7 +82,7 @@ exports.update = (req, res) => {
  *  DELETE
  */
 exports.delete = (req, res) => {
-  AuthAclRole.findByIdAndRemove(req.params._roleId)
+  Role.findByIdAndRemove(req.params._roleId)
     .then(role => {
       if (!role) {
         return res.status(404).send({
@@ -105,7 +105,7 @@ exports.delete = (req, res) => {
 
 // FETCH all Roles
 exports.findAll = (req, res) => {
-  AuthAclRole.find()
+  Role.find()
     .then(roles => {
       let returnedRoles = []
 

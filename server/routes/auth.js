@@ -6,7 +6,7 @@ const passport = require('passport')
 const validateRegisterInput = require('../validation/register')
 const validateLoginInput = require('../validation/login')
 
-const { AuthUser, AuthAclRole } = require('../models/schema')
+const { Auth, AuthAclRole } = require('../models/schema')
 
 router.post('/register', function(req, res) {
   const { errors, isValid } = validateRegisterInput(req.body)
@@ -14,7 +14,7 @@ router.post('/register', function(req, res) {
   if (!isValid) {
     return res.status(400).json(errors)
   }
-  AuthUser.findOne({
+  Auth.findOne({
     email: req.body.email,
   }).then(user => {
     if (user) {
@@ -23,7 +23,7 @@ router.post('/register', function(req, res) {
       })
     } else {
       const memberAuthAclRole = new AuthAclRole()
-      const memberAuthUser = new AuthUser({
+      const memberAuth = new Auth({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
@@ -33,11 +33,11 @@ router.post('/register', function(req, res) {
       bcrypt.genSalt(10, (err, salt) => {
         if (err) console.error('There was an error', err)
         else {
-          bcrypt.hash(memberAuthUser.password, salt, (err, hash) => {
+          bcrypt.hash(memberAuth.password, salt, (err, hash) => {
             if (err) console.error('There was an error', err)
             else {
-              memberAuthUser.password = hash
-              memberAuthUser.save().then(user => {
+              memberAuth.password = hash
+              memberAuth.save().then(user => {
                 res.json(user)
               })
             }
@@ -58,7 +58,7 @@ router.post('/login', (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
-  AuthUser.findOne({ email }).then(user => {
+  Auth.findOne({ email }).then(user => {
     if (!user) {
       errors.email = 'User not found'
       return res.status(404).json(errors)

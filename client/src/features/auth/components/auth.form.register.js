@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
 import axios from 'axios'
 
-export default class AuthUserFormRegister extends Component {
+export default class AuthFormRegister extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -37,7 +37,7 @@ export default class AuthUserFormRegister extends Component {
 
   register = (user, history) => {
     axios
-      .post('/api/auth/user/register', user)
+      .post('/api/auth/register', user)
       .then(res => history.push('/login'))
       .catch(err => {
         this.props.getErrors(err.response.data)

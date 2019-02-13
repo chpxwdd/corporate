@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
 const config = require('./config/db')
-const routesAuthUser = require('./routes/auth.user')
-const routesAuthAclRole = require('./routes/auth.acl.role')
+const routesAuth = require('./routes/auth')
+const routesRole = require('./routes/role')
 
 mongoose.connect(config.path, config.options).then(
   () => {
@@ -24,8 +24,8 @@ require('./config/passport')(passport)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/api/auth/user', routesAuthUser)
-app.use('/api/auth/acl/role', routesAuthAclRole)
+app.use('/api/auth', routesAuth)
+app.use('/api/role', routesRole)
 
 // app.get("/", function(req, res) {  res.send("hello");}); // check test
 const PORT = process.env.PORT || 5000

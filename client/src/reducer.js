@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import reducerAuthUser from './common/Auth/User/reducer'
+import reducerAuth from './features/auth/reducer'
 
 export const rootReducer = combineReducers({
-  user: reducerAuthUser,
+  auth: reducerAuth,
 })

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const repository = require('../repository/auth.acl.role')
+const repository = require('../repository/role')
 
 // CREATE
 router.post('/create', repository.create)

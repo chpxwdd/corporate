@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withRouter } from 'react-router-dom'
-import { getErrors, setCurrent } from './action'
-import AuthUserFormLogin from './form.login'
+import { getErrors, setCurrent } from '../action'
+import AuthFormLogin from './auth.form.login'
 
-class AuthUserFormLoginContainer extends Component {
+class AuthScreenLogin extends Component {
   render() {
-    return <AuthUserFormLogin {...this.props} />
+    return <AuthFormLogin {...this.props} />
   }
 }
 
 const mapStateToProps = store => {
   return {
-    errors: store.user.errors,
-    current: store.user.current,
+    errors: store.auth.errors,
+    current: store.auth.current,
   }
 }
 
@@ -28,4 +28,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(AuthUserFormLoginContainer))
+)(withRouter(AuthScreenLogin))
