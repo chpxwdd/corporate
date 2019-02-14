@@ -3,10 +3,12 @@ const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
+
 const validateRegisterInput = require('../validation/register')
 const validateLoginInput = require('../validation/login')
 
-const { User, Role } = require('../models/schema')
+const { User } = require('../models/user')
+const { Role } = require('../models/role')
 
 const ROLE_MEMBER = 'member'
 
@@ -28,7 +30,7 @@ router.post('/register', function(req, res) {
 
     // set default member role
 
-    Role.findOne({ title: 'member' }).exec((err, member) => {
+    Role.findOne({ title: ROLE_MEMBER }).exec((err, member) => {
       if (err) {
         console.error('Can`t find role member in DB. Please re-install data', err)
         return

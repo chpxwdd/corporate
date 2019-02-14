@@ -1,17 +1,17 @@
 const express = require('express')
 const router = express.Router()
 
-const repository = require('../repository/role')
+const repo = require('../repository/role')
 
 // FETCH
-router.get('/', repository.findAll)
+router.get('/', repo.findAll)
 // CREATE
-router.post('/create', repository.create)
+router.post('/create', repo.create)
 // READ
-router.get('/:_roleId', repository.read)
+router.get('/:_id', repo.read)
 // UPDATE
-router.put('/:_roleId', repository.update)
+router.put('/:_id', repo.update)
 // DELETE
-router.delete('/:_roleId', repository.delete)
+router.delete('/:_id', repo.delete)
 
 module.exports = router

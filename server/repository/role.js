@@ -1,4 +1,4 @@
-const { Role } = require('../models/schema.js')
+const { Role } = require('../models/role')
 
 /**
  * CREATE [POST]
@@ -6,12 +6,8 @@ const { Role } = require('../models/schema.js')
 exports.create = (req, res) => {
   // check for exists
 
-  // check parent 
-  if(req.body.parent){
-    this.
+  // check parent
 
-  }
-  
   // Create a Role
   const Role = new Role({
     title: req.body.title,

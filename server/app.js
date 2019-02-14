@@ -7,7 +7,8 @@ const config = require('./config/db')
 const routesUser = require('./routes/user')
 const routesRole = require('./routes/role')
 
-const { User, Role } = require('./models/schema')
+const { User } = require('./models/user')
+const { Role } = require('./models/role')
 
 // const repositoryRole = require('./repository/role')
 // repositoryRole.findByTitle('member', Role)
