@@ -1,2 +1,0 @@
-export const AUTH_GET_ERRORS = 'AUTH_GET_ERRORS'
-export const AUTH_SET_CURRENT = 'AUTH_SET_CURRENT'

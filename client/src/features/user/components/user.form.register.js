@@ -1,64 +1,54 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, Button, FormControl, ControlLabel, HelpBlock } from 'react-bootstrap'
 import axios from 'axios'
-import jwt_decode from 'jwt-decode'
-import { setAuthToken } from '../utils'
 
-export default class AuthFormLogin extends Component {
+export default class UserFormRegister extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      username: '',
       email: '',
       password: '',
+      confirm: '',
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.current) {
-      this.props.history.push('/')
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.current) {
-      this.props.history.push('/')
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault()
     const user = {
+      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
+      confirm: this.state.confirm,
     }
-    this.login(user)
+    this.register(user, this.props.history)
   }
 
   handleInputChange(e) {
     this.setState({
       [e.target.id]: e.target.value,
     })
-
     if (this.props.errors[e.target.id]) {
       delete this.props.errors[e.target.id]
     }
   }
 
-  login = (user, history) => {
+  register = (user, history) => {
     axios
-      .post('/api/auth/login', user)
-      .then(res => {
-        const { token } = res.data
-        localStorage.setItem('jwtToken', token)
-        setAuthToken(token)
-        const decoded = jwt_decode(token)
-        this.props.setCurrent(decoded)
-      })
+      .post('/api/user/register', user)
+      .then(res => history.push('/login'))
       .catch(err => {
         this.props.getErrors(err.response.data)
       })
+  }
+
+  getValidationState(field) {
+    if (this.props.errors[field]) {
+      return 'error'
+    }
+    return null
   }
 
   renderFormGroup(field, inputType, label = '') {
@@ -78,9 +68,12 @@ export default class AuthFormLogin extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        {this.renderFormGroup('username', 'text', 'Имя пользователя')}
         {this.renderFormGroup('email', 'text', 'E-M@il')}
         {this.renderFormGroup('password', 'password', 'Пароль')}
-        <Button type="submit">Signup</Button>
+        {this.renderFormGroup('confirm', 'password', 'Подтверждение')}
+
+        <Button type="submit">Submit</Button>
       </Form>
     )
   }

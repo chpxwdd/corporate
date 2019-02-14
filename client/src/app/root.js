@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { BrowserRouter, Route } from 'react-router-dom'
-import AuthScreenLogin from '../features/auth/components/auth.screen.login'
-import AuthScreenRegister from '../features/auth/components/auth.screen.register'
+import UserScreenLogin from '../features/user/components/user.screen.login'
+import UserScreenRegister from '../features/user/components/user.screen.register'
 import Topnavbar from '../spaces/topnavbar'
 import RootScreenHome from '../features/Root/screen/root.screen.home'
 
@@ -16,8 +16,8 @@ export default class Root extends Component {
             <Row>
               <Col>
                 <Route exact path="/" component={RootScreenHome} />
-                <Route exact path="/register" component={AuthScreenRegister} />
-                <Route exact path="/login" component={AuthScreenLogin} />
+                <Route exact path="/register" component={UserScreenRegister} />
+                <Route exact path="/login" component={UserScreenLogin} />
               </Col>
             </Row>
           </Grid>

@@ -4,6 +4,14 @@ const { Role } = require('../models/schema.js')
  * CREATE [POST]
  */
 exports.create = (req, res) => {
+  // check for exists
+
+  // check parent 
+  if(req.body.parent){
+    this.
+
+  }
+  
   // Create a Role
   const Role = new Role({
     title: req.body.title,
@@ -24,7 +32,7 @@ exports.create = (req, res) => {
 /**
  *  READ
  */
-exports.findOne = (req, res) => {
+exports.read = (req, res) => {
   Role.findById(req.params._id)
     .then(role => {
       if (role) {

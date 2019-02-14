@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Navbar, Glyphicon } from 'react-bootstrap'
 import RootNavLinks from '../features/Root/nav/root.nav.links'
-import AuthNavLinks from '../features/auth/components/auth.nav.links'
+import UserNavLinks from '../features/user/components/user.nav.links'
 
-class Topnavbar extends Component {
+export default class Topnavbar extends Component {
   render() {
     return (
       <div>
@@ -18,29 +18,10 @@ class Topnavbar extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <RootNavLinks />
-            <AuthNavLinks />
+            <UserNavLinks />
           </Navbar.Collapse>
         </Navbar>
       </div>
     )
   }
 }
-
-// const mapStateToProps = store => {
-//   return {
-//     current: store.user.current,
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     setCurrent: bindActionCreators(setCurrent, dispatch),
-//   }
-// }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(withRouter(Topnavbar))
-
-export default Topnavbar

@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom'
 import { setCurrent } from '../action'
 import { setAuthToken } from '../utils'
 
-class AuthNavLinks extends Component {
+class UserNavLinks extends Component {
   /**
    *
    * @param {*} props
@@ -91,7 +91,7 @@ class AuthNavLinks extends Component {
 
 const mapStateToProps = store => {
   return {
-    current: store.auth.current,
+    current: store.user.current,
   }
 }
 
@@ -104,4 +104,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(AuthNavLinks))
+)(withRouter(UserNavLinks))
