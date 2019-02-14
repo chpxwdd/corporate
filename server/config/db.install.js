@@ -5,13 +5,13 @@ const APP_EMAIL_MEMBER = 'member@local.domain'
 const APP_USERNAME_ADMIN = 'admin'
 const APP_EMAIL_ADMIN = 'admin@local.domain'
 const APP_AUTH_PASSWORD = 'alkoklan'
-const modelAuthAclRole = mongoose.model('AuthAclRole')
+const modelRole = mongoose.model('Role')
 
-const memberAuthAclRole = new modelAuthAclRole({ title: APP_AUTH_MEMBER })
-memberAuthAclRole.save()
+const memberRole = new modelRole({ title: 'member' })
+memberRole.save()
 
-const adminAuthAclRole = new modelAuthAclRole({ title: APP_AUTH_ADMIN, parent: memberAuthAclRole })
-adminAuthAclRole.save()
+const adminRole = new modelRole({ title: 'admin', parent: memberRole })
+adminRole.save()
 
 bcrypt.genSalt(10, (err, salt) => {
   if (err) {
@@ -23,21 +23,21 @@ bcrypt.genSalt(10, (err, salt) => {
       console.error('User "member" has not created', err)
       return false
     }
-    const modelAuthUser = mongoose.model('AuthUser')
-    const memberAuthUser = new modelAuthUser({
+    const modelAuth = mongoose.model('Auth')
+    const memberAuth = new modelAuth({
       username: APP_USERNAME_MEMBER,
       email: APP_EMAIL_MEMBER,
       password: hash,
-      role: memberAuthAclRole,
+      role: memberRole,
     })
-    memberAuthUser.save()
-    const adminAuthUser = new modelAuthUser({
+    memberAuth.save()
+    const adminAuth = new modelAuth({
       username: APP_USERNAME_ADMIN,
       email: APP_EMAIL_ADMIN,
       password: hash,
-      role: adminAuthAclRole,
+      role: adminRole,
     })
-    adminAuthUser.save()
+    adminAuth.save()
   })
 })
 // ------------------------------------------------------------------------------------------

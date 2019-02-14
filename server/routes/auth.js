@@ -6,7 +6,9 @@ const passport = require('passport')
 const validateRegisterInput = require('../validation/register')
 const validateLoginInput = require('../validation/login')
 
-const { Auth, AuthAclRole } = require('../models/schema')
+const { Auth, Role } = require('../models/schema')
+
+const AUTH_ROLE_MEMBER = 'member'
 
 router.post('/register', function(req, res) {
   const { errors, isValid } = validateRegisterInput(req.body)
@@ -14,6 +16,7 @@ router.post('/register', function(req, res) {
   if (!isValid) {
     return res.status(400).json(errors)
   }
+
   Auth.findOne({
     email: req.body.email,
   }).then(user => {
@@ -21,30 +24,45 @@ router.post('/register', function(req, res) {
       return res.status(400).json({
         email: 'Email already exists',
       })
-    } else {
-      const memberAuthAclRole = new AuthAclRole()
-      const memberAuth = new Auth({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role: memberAuthAclRole.find({ title: 'member' }),
-      })
+    }
+
+    // set default member role
+
+    Role.findOne({ title: 'member' }).exec((err, member) => {
+      if (err) {
+        console.error('Can`t find role member in DB. Please re-install data', err)
+        return false
+      }
 
       bcrypt.genSalt(10, (err, salt) => {
-        if (err) console.error('There was an error', err)
-        else {
-          bcrypt.hash(memberAuth.password, salt, (err, hash) => {
-            if (err) console.error('There was an error', err)
-            else {
-              memberAuth.password = hash
-              memberAuth.save().then(user => {
-                res.json(user)
-              })
-            }
-          })
+        if (err) {
+          console.error('There was an error', err)
+          return false
         }
+
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+          if (err) {
+            console.error('There was an error', err)
+            return false
+          }
+
+          new Auth({
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+            role: member._id,
+          })
+            .save()
+            .then(user => {
+              res.json(user)
+            })
+            .catch(err => {
+              console.error('Registered user is not save with error:', err)
+              return false
+            })
+        })
       })
-    }
+    })
   })
 })
 
@@ -63,6 +81,7 @@ router.post('/login', (req, res) => {
       errors.email = 'User not found'
       return res.status(404).json(errors)
     }
+
     bcrypt.compare(password, user.password).then(isMatch => {
       if (!isMatch) {
         errors.password = 'Incorrect Password'
@@ -79,13 +98,14 @@ router.post('/login', (req, res) => {
       const jwtPhrase = 'secret'
 
       jwt.sign(payload, jwtPhrase, jwtOptions, (err, token) => {
-        if (err) console.error('There is some error in token', err)
-        else {
-          res.json({
-            success: true,
-            token: `Bearer ${token}`,
-          })
+        if (err) {
+          console.error('There is some error in token', err)
+          return false
         }
+        res.json({
+          success: true,
+          token: `Bearer ${token}`,
+        })
       })
     })
   })
