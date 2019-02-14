@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const schemaAuth = new Schema()
-schemaAuth.set('collection', 'auth')
+const schemaUser = new Schema()
+schemaUser.set('collection', 'user')
 
 const schemaRole = new Schema()
 schemaRole.set('collection', 'role')
 
-schemaAuth.add({
+schemaUser.add({
   id: mongoose.Schema.ObjectId,
   username: { type: String, required: true, unique: true, dropDups: true },
   email: { type: String, required: true, unique: true, dropDups: true },
@@ -25,6 +25,6 @@ schemaRole.add({
 /* INSTALL ACL ROLE */
 
 module.exports = {
-  Auth: mongoose.model('Auth', schemaAuth),
+  User: mongoose.model('User', schemaUser),
   Role: mongoose.model('Role', schemaRole),
 }

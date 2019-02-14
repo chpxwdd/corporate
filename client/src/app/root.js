@@ -16,8 +16,8 @@ export default class Root extends Component {
             <Row>
               <Col>
                 <Route exact path="/" component={RootScreenHome} />
-                <Route path="/register" component={AuthScreenRegister} />
-                <Route path="/login" component={AuthScreenLogin} />
+                <Route exact path="/register" component={AuthScreenRegister} />
+                <Route exact path="/login" component={AuthScreenLogin} />
               </Col>
             </Row>
           </Grid>

@@ -25,23 +25,24 @@ exports.create = (req, res) => {
  *  READ
  */
 exports.findOne = (req, res) => {
-  Role.findById(req.params._roleId)
+  Role.findById(req.params._id)
     .then(role => {
-      if (!role) {
-        return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
-        })
+      if (role) {
+        return res.send(role.toClient())
       }
-      res.send(role.toClient())
+
+      return res.status(404).send({
+        message: 'Role not found with id ' + req.params._id,
+      })
     })
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
+          message: 'Role not found with id ' + req.params._id,
         })
       }
       return res.status(500).send({
-        message: 'Error retrieving Role with id ' + req.params._roleId,
+        message: 'Error retrieving Role with id ' + req.params._id,
       })
     })
 }
@@ -52,7 +53,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   // Find Role and update it
   Role.findOneAndUpdate(
-    { _id: req.params._roleId },
+    { _id: req.params._id },
     {
       title: req.body.title,
     },
@@ -61,7 +62,7 @@ exports.update = (req, res) => {
     .then(role => {
       if (!role) {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
+          message: 'Role not found with id ' + req.params._id,
         })
       }
       res.send(role.toClient())
@@ -69,11 +70,11 @@ exports.update = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
+          message: 'Role not found with id ' + req.params._id,
         })
       }
       return res.status(500).send({
-        message: 'Error updating Role with id ' + req.params._roleId,
+        message: 'Error updating Role with id ' + req.params._id,
       })
     })
 }
@@ -82,11 +83,11 @@ exports.update = (req, res) => {
  *  DELETE
  */
 exports.delete = (req, res) => {
-  Role.findByIdAndRemove(req.params._roleId)
+  Role.findByIdAndRemove(req.params._id)
     .then(role => {
       if (!role) {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
+          message: 'Role not found with id ' + req.params._id,
         })
       }
       res.send({ message: 'Role deleted successfully!' })
@@ -94,11 +95,11 @@ exports.delete = (req, res) => {
     .catch(err => {
       if (err.kind === 'ObjectId' || err.name === 'NotFound') {
         return res.status(404).send({
-          message: 'Role not found with id ' + req.params._roleId,
+          message: 'Role not found with id ' + req.params._id,
         })
       }
       return res.status(500).send({
-        message: 'Could not delete Role with id ' + req.params._roleId,
+        message: 'Could not delete Role with id ' + req.params._id,
       })
     })
 }
@@ -120,4 +121,26 @@ exports.findAll = (req, res) => {
         message: err.message,
       })
     })
+}
+
+// FETCH all Roles
+exports.findByTitle = (req, res) => {
+  console.log(req)
+  console.log('-')
+  console.log(res)
+  // Role.find()
+  //   .then(roles => {
+  //     let returnedRoles = []
+
+  //     for (let i = 0; i < roles.length; i++) {
+  //       returnedRoles.push(roles[i].toClient())
+  //     }
+
+  //     res.send(returnedRoles)
+  //   })
+  //   .catch(err => {
+  //     res.status(500).send({
+  //       message: err.message,
+  //     })
+  //   })
 }

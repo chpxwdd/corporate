@@ -4,21 +4,22 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 // const bcrypt = require('bcryptjs')
 const config = require('./config/db')
-const routesAuth = require('./routes/auth')
+const routesUser = require('./routes/user')
 const routesRole = require('./routes/role')
 
-mongoose.connect(config.path, config.options).then(
-  () => {
+const { User, Role } = require('./models/schema')
+
+// const repositoryRole = require('./repository/role')
+// repositoryRole.findByTitle('member', Role)
+
+mongoose
+  .connect(config.path, config.options)
+  .then(() => {
     console.log('Database is connected')
-  },
-  err => {
+  })
+  .catch(err => {
     console.log('Can not connect to the database' + err)
-  }
-)
-// const memberRole = new modelRole({ title: 'member' })
-// memberRole.save()
-// const adminRole = new modelRole({ title: 'admin', parent: memberRole })
-// adminRole.save()
+  })
 
 const app = express()
 app.use(passport.initialize())
@@ -28,7 +29,7 @@ require('./config/passport')(passport)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/api/auth', routesAuth)
+app.use('/api/user', routesUser)
 app.use('/api/role', routesRole)
 
 // app.get("/", function(req, res) {  res.send("hello");}); // check test

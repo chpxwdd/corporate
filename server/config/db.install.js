@@ -1,10 +1,10 @@
 // ------------------------------------------------------------------------------------------
-// install AUTH ACL ROLES
-const APP_USERNAME_MEMBER = 'member'
-const APP_EMAIL_MEMBER = 'member@local.domain'
-const APP_USERNAME_ADMIN = 'admin'
-const APP_EMAIL_ADMIN = 'admin@local.domain'
-const APP_AUTH_PASSWORD = 'alkoklan'
+// install USER ACL ROLES
+const USERNAME_MEMBER = 'member'
+const EMAIL_MEMBER = 'member@local.domain'
+const USERNAME_ADMIN = 'admin'
+const EMAIL_ADMIN = 'admin@local.domain'
+const USER_PASSWORD = 'alkoklan'
 const modelRole = mongoose.model('Role')
 
 const memberRole = new modelRole({ title: 'member' })
@@ -18,26 +18,26 @@ bcrypt.genSalt(10, (err, salt) => {
     console.error('Users has not created', err)
     return false
   }
-  bcrypt.hash(APP_AUTH_PASSWORD, salt, (err, hash) => {
+  bcrypt.hash(USER_PASSWORD, salt, (err, hash) => {
     if (err) {
       console.error('User "member" has not created', err)
       return false
     }
-    const modelAuth = mongoose.model('Auth')
-    const memberAuth = new modelAuth({
-      username: APP_USERNAME_MEMBER,
-      email: APP_EMAIL_MEMBER,
+    const modelUser = mongoose.model('User')
+    const memberUser = new modelUser({
+      username: USERNAME_MEMBER,
+      email: EMAIL_MEMBER,
       password: hash,
       role: memberRole,
     })
-    memberAuth.save()
-    const adminAuth = new modelAuth({
-      username: APP_USERNAME_ADMIN,
-      email: APP_EMAIL_ADMIN,
+    memberUser.save()
+    const adminUser = new modelUser({
+      username: USERNAME_ADMIN,
+      email: EMAIL_ADMIN,
       password: hash,
       role: adminRole,
     })
-    adminAuth.save()
+    adminUser.save()
   })
 })
 // ------------------------------------------------------------------------------------------
