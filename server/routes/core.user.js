@@ -4,11 +4,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 
-const validateRegisterInput = require('../../validation/register')
-const validateLoginInput = require('../../validation/login')
+const validateRegisterInput = require('../validation/core.user.register')
+const validateLoginInput = require('../validation/core.user.login')
 
-const { User } = require('../../models/core/user')
-const { Role } = require('../../models/core/role')
+const { CoreUser } = require('../models/core.user')
+const { CoreRole } = require('../models/core.role')
 
 const ROLE_MEMBER = 'member'
 
@@ -19,7 +19,7 @@ router.post('/register', function(req, res) {
     return res.status(400).json(errors)
   }
 
-  User.findOne({
+  CoreCoreUser.findOne({
     email: req.body.email,
   }).then(user => {
     if (user) {
@@ -48,7 +48,7 @@ router.post('/register', function(req, res) {
             return
           }
 
-          new User({
+          new CoreUser({
             username: req.body.username,
             email: req.body.email,
             password: hash,
@@ -77,7 +77,7 @@ router.post('/login', (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
-  User.findOne({ email }).then(user => {
+  CoreUser.findOne({ email }).then(user => {
     if (!user) {
       errors.email = 'User not found'
       return res.status(404).json(errors)

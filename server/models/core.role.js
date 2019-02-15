@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const schemaRole = new Schema()
-schemaRole.set('collection', 'CoreRole')
+const schemaCoreRole = new Schema()
+schemaCoreRole.set('collection', 'CoreRole')
 
-schemaRole.add({
+schemaCoreRole.add({
   id: mongoose.Schema.ObjectId,
   title: { type: String, required: true, unique: true, dropDups: true },
   parent: { type: Schema.Types.ObjectId, ref: 'CoreRole', default: null },
@@ -13,5 +13,5 @@ schemaRole.add({
 /* INSTALL ACL ROLE */
 
 module.exports = {
-  Role: mongoose.model('CoreRole', schemaRole),
+  CoreRole: mongoose.model('CoreRole', schemaCoreRole),
 }

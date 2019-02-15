@@ -12,12 +12,6 @@ const routesLunchDish = require('./routes/lunch/dish')
 const routesLunchMenu = require('./routes/lunch/menu')
 const routesLunchOrder = require('./routes/lunch/order')
 
-// const { User } = require('./models/core/user')
-// const { Role } = require('./models/core/role')
-
-// const repositoryRole = require('./repository/role')
-// repositoryRole.findByTitle('member', Role)
-
 mongoose
   .connect(config.path, config.options)
   .then(() => {

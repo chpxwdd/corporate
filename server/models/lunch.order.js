@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const schemaOrder = new Schema()
-schemaOrder.set('collection', 'LunchOrder')
+const schemaLunchOrder = new Schema()
+schemaLunchOrder.set('collection', 'LunchOrder')
 
-schemaOrder.add({
+schemaLunchOrder.add({
   id: Schema.Types.ObjectId,
   person: { type: Schema.Types.ObjectId, ref: 'CoreUser', required: true },
   publish: { type: Date, default: Date.now },
@@ -14,5 +14,5 @@ schemaOrder.add({
 /* INSTALL ACL ROLE */
 
 module.exports = {
-  Order: mongoose.model('LunchOrder', schemaOrder),
+  Order: mongoose.model('LunchOrder', schemaLunchOrder),
 }

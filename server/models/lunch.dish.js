@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const schemaDish = new Schema()
-schemaDish.set('collection', 'LunchDish')
+const schemaLunchDish = new Schema()
+schemaLunchDish.set('collection', 'LunchDish')
 
-schemaDish.add({
+schemaLunchDish.add({
   id: Schema.Types.ObjectId,
   title: { type: String, required: true },
   price: { type: Schema.Types.Decimal128, required: true },
@@ -17,5 +17,5 @@ schemaDish.add({
 /* INSTALL ACL ROLE */
 
 module.exports = {
-  Dish: mongoose.model('LunchDish', schemaDish),
+  Dish: mongoose.model('LunchDish', schemaLunchDish),
 }
