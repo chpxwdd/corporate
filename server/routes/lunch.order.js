@@ -1,12 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const repo = require('./repo/order')
-
-router.get('/', repo.fetch)
-router.post('/create', repo.create)
-router.get('/:_id', repo.read)
-router.put('/:_id', repo.update)
-router.delete('/:_id', repo.delete)
+router.get('/', (req, res) => {})
+router.post('/create', (req, res) => {})
+router.get('/:_id', (req, res) => {})
+router.put('/:_id', (req, res) => {})
+router.delete('/:_id', (req, res) => {})
 
 module.exports = router

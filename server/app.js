@@ -5,12 +5,12 @@ const passport = require('passport')
 // const bcrypt = require('bcryptjs')
 const config = require('./config/db')
 
-const routesCoreUser = require('./routes/core/user')
-const routesCoreRole = require('./routes/core/role')
+const routesCoreUser = require('./routes/core.user')
+// const routesCoreRole = require('./routes/core.role')
 
-const routesLunchDish = require('./routes/lunch/dish')
-const routesLunchMenu = require('./routes/lunch/menu')
-const routesLunchOrder = require('./routes/lunch/order')
+const routesLunchDish = require('./routes/lunch.dish')
+const routesLunchMenu = require('./routes/lunch.menu')
+const routesLunchOrder = require('./routes/lunch.order')
 
 mongoose
   .connect(config.path, config.options)
