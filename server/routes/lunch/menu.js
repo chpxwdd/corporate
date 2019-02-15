@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const repo = require('../../models/lunch/repo/menu')
+const repo = require('./repo/menu')
 
 router.get('/', repo.fetch)
 router.post('/create', repo.create)

@@ -2,7 +2,21 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const passport = require('passport')
+// const bcrypt = require('bcryptjs')
 const config = require('./config/db')
+
+const routesCoreUser = require('./routes/core/user')
+const routesCoreRole = require('./routes/core/role')
+
+const routesLunchDish = require('./routes/lunch/dish')
+const routesLunchMenu = require('./routes/lunch/menu')
+const routesLunchOrder = require('./routes/lunch/order')
+
+// const { User } = require('./models/core/user')
+// const { Role } = require('./models/core/role')
+
+// const repositoryRole = require('./repository/role')
+// repositoryRole.findByTitle('member', Role)
 
 mongoose
   .connect(config.path, config.options)
@@ -21,22 +35,13 @@ require('./config/passport')(passport)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// routers
-// app.get("/", function(req, res) {  res.send("hello");}); // check test
-// core
-const routesCoreUser = require('./routes/core/user')
-const routesCoreRole = require('./routes/core/role')
 app.use('/api/core/user', routesCoreUser)
 app.use('/api/core/role', routesCoreRole)
+app.use('/api/core/dish', routesLunchDish)
+app.use('/api/core/menu', routesLunchMenu)
+app.use('/api/core/order', routesLunchOrder)
 
-// lunch
-const routesLunchMenu = require('./routes/lunch/menu')
-const routesLunchDish = require('./routes/lunch/dish')
-const routesLunchOrder = require('./routes/lunch/order')
-app.use('/api/lunch/menu', routesLunchMenu)
-app.use('/api/lunch/dish', routesLunchDish)
-app.use('/api/lunch/order', routesLunchOrder)
-
+// app.get("/", function(req, res) {  res.send("hello");}); // check test
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
