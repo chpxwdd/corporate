@@ -4,11 +4,11 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 // const bcrypt = require('bcryptjs')
 const config = require('./config/db')
-const routesUser = require('./routes/user')
-const routesRole = require('./routes/role')
+const routesUser = require('./routes/core/user')
+const routesRole = require('./routes/core/role')
 
-const { User } = require('./models/user')
-const { Role } = require('./models/role')
+const { User } = require('./models/core/user')
+const { Role } = require('./models/core/role')
 
 // const repositoryRole = require('./repository/role')
 // repositoryRole.findByTitle('member', Role)
@@ -30,8 +30,8 @@ require('./config/passport')(passport)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use('/api/user', routesUser)
-app.use('/api/role', routesRole)
+app.use('/api/core/user', routesUser)
+app.use('/api/core/role', routesRole)
 
 // app.get("/", function(req, res) {  res.send("hello");}); // check test
 const PORT = process.env.PORT || 5000

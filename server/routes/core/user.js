@@ -4,11 +4,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 
-const validateRegisterInput = require('../validation/register')
-const validateLoginInput = require('../validation/login')
+const validateRegisterInput = require('../../validation/register')
+const validateLoginInput = require('../../validation/login')
 
-const { User } = require('../models/user')
-const { Role } = require('../models/role')
+const { User } = require('../../models/core/user')
+const { Role } = require('../../models/core/role')
 
 const ROLE_MEMBER = 'member'
 

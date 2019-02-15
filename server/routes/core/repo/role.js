@@ -1,8 +1,6 @@
-const { Role } = require('../models/role')
+const { Role } = require('../../../models/core/role')
 
-/**
- * CREATE [POST]
- */
+// CREATE
 exports.create = (req, res) => {
   // check for exists
 
@@ -25,9 +23,7 @@ exports.create = (req, res) => {
     })
 }
 
-/**
- *  READ
- */
+//  READ
 exports.read = (req, res) => {
   Role.findById(req.params._id)
     .then(role => {
@@ -51,9 +47,7 @@ exports.read = (req, res) => {
     })
 }
 
-/**
- * UPDATE
- */
+// UPDATE
 exports.update = (req, res) => {
   // Find Role and update it
   Role.findOneAndUpdate(
@@ -83,9 +77,7 @@ exports.update = (req, res) => {
     })
 }
 
-/**
- *  DELETE
- */
+// DELETE
 exports.delete = (req, res) => {
   Role.findByIdAndRemove(req.params._id)
     .then(role => {
@@ -108,8 +100,8 @@ exports.delete = (req, res) => {
     })
 }
 
-// FETCH all Roles
-exports.findAll = (req, res) => {
+// FETCH
+exports.fetch = (req, res) => {
   Role.find()
     .then(roles => {
       let returnedRoles = []
@@ -125,26 +117,4 @@ exports.findAll = (req, res) => {
         message: err.message,
       })
     })
-}
-
-// FETCH all Roles
-exports.findByTitle = (req, res) => {
-  console.log(req)
-  console.log('-')
-  console.log(res)
-  // Role.find()
-  //   .then(roles => {
-  //     let returnedRoles = []
-
-  //     for (let i = 0; i < roles.length; i++) {
-  //       returnedRoles.push(roles[i].toClient())
-  //     }
-
-  //     res.send(returnedRoles)
-  //   })
-  //   .catch(err => {
-  //     res.status(500).send({
-  //       message: err.message,
-  //     })
-  //   })
 }

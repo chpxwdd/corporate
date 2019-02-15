@@ -23,7 +23,7 @@ bcrypt.genSalt(10, (err, salt) => {
       console.error('User "member" has not created', err)
       return false
     }
-    const modelUser = mongoose.model('User')
+    const modelUser = mongoose.model('CoreUser')
     const memberUser = new modelUser({
       username: USERNAME_MEMBER,
       email: EMAIL_MEMBER,

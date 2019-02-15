@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const schemaUser = new Schema()
-schemaUser.set('collection', 'user')
+schemaUser.set('collection', 'CoreUser')
 
 schemaUser.add({
   id: mongoose.Schema.ObjectId,
@@ -10,9 +10,9 @@ schemaUser.add({
   email: { type: String, required: true, unique: true, dropDups: true },
   password: { type: String, required: true },
   date: { type: Date, default: Date.now },
-  role: { type: Schema.Types.ObjectId, ref: 'Role', default: null },
+  role: { type: Schema.Types.ObjectId, ref: 'CoreRole', required: true },
 })
 
 module.exports = {
-  User: mongoose.model('User', schemaUser),
+  User: mongoose.model('CoreUser', schemaUser),
 }
