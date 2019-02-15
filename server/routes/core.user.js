@@ -19,7 +19,7 @@ router.post('/register', function(req, res) {
     return res.status(400).json(errors)
   }
 
-  CoreCoreUser.findOne({
+  CoreUser.findOne({
     email: req.body.email,
   }).then(user => {
     if (user) {
@@ -30,7 +30,7 @@ router.post('/register', function(req, res) {
 
     // set default member role
 
-    Role.findOne({ title: ROLE_MEMBER }).exec((err, member) => {
+    CoreRole.findOne({ title: ROLE_MEMBER }).exec((err, member) => {
       if (err) {
         console.error('Can`t find role member in DB. Please re-install data', err)
         return
